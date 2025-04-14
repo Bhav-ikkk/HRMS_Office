@@ -9,9 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@casl/ability": "^6.7.3",
+    "@casl/react": "^5.0.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
+    "@prisma/client": "^6.6.0",
+    "next": "15.3.0",
+    "next-auth": "^4.24.11",
+    "prisma": "^6.6.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
