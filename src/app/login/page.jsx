@@ -3,7 +3,6 @@ import { Box, Button, Container, TextField, Typography, Paper} from "@mui/materi
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { CacheProvider } from "@emotion/react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -30,7 +29,7 @@ export default function LoginPage() {
     <Container maxWidth="sm" sx={{ mt: 10 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Admin Login
+          Login to HRMS
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField

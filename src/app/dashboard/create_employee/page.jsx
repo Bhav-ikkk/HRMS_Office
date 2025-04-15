@@ -19,6 +19,7 @@ export default function CreateEmployeePage() {
     name: "",
     email: "",
     password: "",
+    role: "EMPLOYEE",
     departmentId: "",
   });
 
@@ -48,11 +49,12 @@ export default function CreateEmployeePage() {
     });
 
     if (res.ok) {
-      alert("Employee created!");
+      alert("User created!");
       setFormData({
         name: "",
         email: "",
         password: "",
+        role: "EMPLOYEE",
         departmentId: "",
       });
     } else {
@@ -65,7 +67,7 @@ export default function CreateEmployeePage() {
     <Container maxWidth="sm" sx={{ mt: 10 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Create New Employee
+          Create Members
         </Typography>
         <form onSubmit={handleSubmit}>
           <TextField
@@ -98,6 +100,21 @@ export default function CreateEmployeePage() {
             required
           />
 
+            <TextField
+            name="role"
+            label="Role"
+            select
+            fullWidth
+            margin="normal"
+            value={formData.role}
+            onChange={handleChange}
+            required
+            >
+  <MenuItem value="EMPLOYEE">Employee</MenuItem>
+  <MenuItem value="ADMIN">Admin</MenuItem>
+</TextField>
+
+
           <FormControl fullWidth margin="normal">
             <InputLabel id="department-label">Department</InputLabel>
             <Select
@@ -118,7 +135,7 @@ export default function CreateEmployeePage() {
 
           <Box sx={{ mt: 2 }}>
             <Button type="submit" variant="contained" fullWidth>
-              Create Employee
+              Create Member
             </Button>
           </Box>
         </form>
