@@ -12,7 +12,7 @@ export default async function DashboardPage() {
   }
 
   if (session.user.role !== "ADMIN") {
-    return <div className="p-4">Access denied. Admins only.</div>;
+    redirect("/dashboard/employee_dashboard");
   }
 
   return (

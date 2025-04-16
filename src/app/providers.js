@@ -1,6 +1,12 @@
-"use client";
-import { SessionProvider } from "next-auth/react";
+'use client';
+
+import { SessionProvider } from 'next-auth/react';
+import AbilityProvider from './components/AbilityProvider';
 
 export default function Providers({ children }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return (
+    <SessionProvider>
+      <AbilityProvider>{children}</AbilityProvider>
+    </SessionProvider>
+  );
 }
