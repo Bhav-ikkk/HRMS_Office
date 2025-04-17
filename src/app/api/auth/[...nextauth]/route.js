@@ -1,3 +1,4 @@
+// /app/api/auth/[...nextauth]/route.js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -20,15 +21,18 @@ export const authOptions = {
           where: { email: credentials.email },
         });
 
-        if (!user) {
-          throw new Error("No user found");
-        }
+        if (!user) throw new Error("No user found");
 
         const isValid = await bcrypt.compare(credentials.password, user.password);
+        if (!isValid) throw new Error("Invalid password");
 
-        if (!isValid) {
-          throw new Error("Invalid password");
-        }
+        // ✅ Save login time
+        await prisma.trace.create({
+          data: {
+            userId: user.id,
+            loginAt: new Date(),
+          },
+        });
 
         return user;
       },
@@ -38,11 +42,13 @@ export const authOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role;
+        token.id = user.id;
       }
       return token;
     },
     async session({ session, token }) {
       session.user.role = token.role;
+      session.user.id = token.id;
       return session;
     },
   },
@@ -52,6 +58,5 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(authOptions)
-
+const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };
