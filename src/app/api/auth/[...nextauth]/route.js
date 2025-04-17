@@ -45,6 +45,19 @@ export const authOptions = {
       session.user.role = token.role;
       return session;
     },
+    async signIn({ user }) {
+      try {
+        await prisma.trace.create({
+          data: {
+            userId: user.id,
+            loginAt: new Date(),
+          },
+        });
+      } catch (error) {
+        console.error("Error creating trace record on sign-in:", error);
+      }
+      return true;
+    },
   },
   session: {
     strategy: "jwt",
