@@ -1,5 +1,6 @@
+"use client"
 import { getServerSession } from "next-auth";
-import { authOptions } from "../api/auth/[...nextauth]/route";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { Typography, Box, Table, TableHead, TableRow, TableCell, TableBody, Button } from "@mui/material";
