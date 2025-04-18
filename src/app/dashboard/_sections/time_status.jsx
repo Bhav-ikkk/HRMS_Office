@@ -90,25 +90,32 @@ export default function TimeStatusPage() {
   const columns = [
     { field: 'name', headerName: 'Name', flex: 1 },
     { field: 'email', headerName: 'Email', flex: 1.5 },
+    { field: 'attendance', headerName: 'Attendance', flex: 1 },
     { field: 'loginAt', headerName: 'Login At', flex: 1.5 },
     { field: 'logoutAt', headerName: 'Logout At', flex: 1.5 },
     { field: 'duration', headerName: 'Duration (hrs)', flex: 1 },
   ];
 
   const rows = filteredData.map((log, index) => {
-    const duration = log.logoutAt
+    const hasLogout = !!log.logoutAt;
+  
+    const duration = hasLogout
       ? ((new Date(log.logoutAt) - new Date(log.loginAt)) / 1000 / 60 / 60).toFixed(2)
       : 'Active';
-
+  
+    const attendance = hasLogout ? 'Present' : 'Absent';
+  
     return {
       id: index,
       name: log.user.name,
       email: log.user.email,
       loginAt: new Date(log.loginAt).toLocaleString(),
-      logoutAt: log.logoutAt ? new Date(log.logoutAt).toLocaleString() : 'Active',
+      logoutAt: hasLogout ? new Date(log.logoutAt).toLocaleString() : 'Active',
       duration,
+      attendance,
     };
   });
+  
 
   return (
     <Stack spacing={4} sx={{ padding: 4 }}>
